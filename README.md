@@ -1,56 +1,38 @@
-# **New Vegas Tick Fix**
- 
- 
- 
- 
- 
- New Vegas Tick Fix is a project aiming to aid with the most common performance issues in the game Fallout New Vegas.
-
-
+# **Oblivion Display Tweaks**
+  
+ Oblivion Display Tweaks started as a port of some [New Vegas Tick Fix](https://github.com/carxt/New-Vegas-Tick-Fix) features to Oblivion.
 
 
 ### Installation:
 
-Copy to the NVSE/Data/Plugins directory
-
-
+Copy to the OBSE/Data/Plugins directory
 
 
 ### Dependencies
 
-###### Visual Studio 2013
-###### New Vegas Script Extender
+* ###### Visual Studio 2019
 
-
-### Supported games:
-
-###### Fallout New Vegas.
+* ###### [Oblivion Script Extender](https://github.com/llde/Oblivion-Script-Extender)
 
 
 ### Current features:
 
+* ###### Replace GetTickCount with a far more accurate timing API (QueryPerformanceCounter).
 
-###### Replace GetTickCount with a far more accurate timing API (QueryPerformanceCounter)
+* ###### Dynamically adjust the FPS Delta, to fix physics issues with uncapped framerate.
 
-###### Dynamically adjust the FPS Delta, to help with High FPS.
+* ###### A true FOV fix with no issues. Working bow zoom, no broken UI scale and fixed dialogue zoom snapping with FOV other than default.
 
-###### Fast Exit.
+* ###### Fast exit.
 
-###### Optimization of heavy functions.
+* ###### Borderless window.
 
-###### Critical Section spin tweaking.
-
+* ###### D3D9Ex with FlipEx for working G-Sync/FreeSync in windowed mode and possibly some performance gains.
 
 
 ### Credits:
 
-###### Carxt, lStewieAl, jazzisparis - feature developers
-###### tgspy - QA Tester, Q&A Manager, community feedback
-
-
-### Special thanks to:
-###### ceski.
-###### TrueCourierSix AKA Maletsna. 
-
-
-
+###### Everyone involved in [New Vegas Tick Fix](https://github.com/carxt/New-Vegas-Tick-Fix)
+###### [llde](https://github.com/llde) - fixed [OBSE Source](https://github.com/llde/Oblivion-Script-Extender)
+###### [SlavicPotato](https://github.com/SlavicPotato) - help with D3D9Ex
+###### [Alenett](https://github.com/Alenett) - some code snippets and memory addresses from [Oblivion Reloaded](https://github.com/Alenett/TES-Reloaded-Source-NEW)
