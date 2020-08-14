@@ -10,16 +10,17 @@ float fMenuDefaultFOV = 75.f;
 
 UINT32 OriginalFunction;
 
-float* fMaxTime = (float*)0xB097C0;
+//float* fMaxTime = (float*)0xB097C0;
+float* fMaxTime = (float*)0xB2E2E8;
 
 int g_iTickFix = 0;
-int g_bFPSFix = 0;
 int g_bFOVFix = 0;
 int g_bDialogFOVFix = 0;
 int g_bFastExit = 0;
 int g_bBorderless = 0;
 int g_bForceD3D9Ex = 0;
 int g_bUseFlipExSwapMode = 0;
+int g_bFPSFix = 0;
 int g_iMaxFPS = 1;
 int g_iMinFPS = 1;
 int g_bfMaxTime;
@@ -160,14 +161,15 @@ void DoPatches()
 		{
 			SafeWrite32(0xA280D0, (UInt32)ReturnCounter);
 		}
-	}
-	if (g_bFPSFix)
-	{
-		_MESSAGE("FPS Fix enabled");
-		DesiredMax = 1000 / double(g_iMaxFPS);
-		DesiredMin = 1000 / double(g_iMinFPS);
-		DefaultMaxTime = (*fMaxTime) * 1000;
-		HookUpdate();
+
+		if (g_bFPSFix)
+		{
+			_MESSAGE("FPS Fix enabled");
+			DesiredMax = 1000 / double(g_iMaxFPS);
+			DesiredMin = 1000 / double(g_iMinFPS);
+			DefaultMaxTime = (*fMaxTime) * 1000;
+			HookUpdate();
+		}
 	}
 	if (g_bFOVFix > 0)
 	{

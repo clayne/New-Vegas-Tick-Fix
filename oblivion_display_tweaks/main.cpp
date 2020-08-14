@@ -65,13 +65,14 @@ bool OBSEPlugin_Load(const OBSEInterface* obse)
 	_MESSAGE("Loading settings from %s", iniDir);
 
 	g_iTickFix = GetPrivateProfileInt("Main", "iTickFix", 0, iniDir);
-	g_bFPSFix = GetPrivateProfileInt("Main", "bFPSFix", 0, iniDir);
 	g_bFOVFix = GetPrivateProfileInt("Main", "bFOVFix", 0, iniDir);
 	g_bFastExit = GetPrivateProfileInt("Main", "bFastExit", 0, iniDir);
 	g_bBorderless = GetPrivateProfileInt("Main", "bBorderless", 0, iniDir);
 
 	g_bForceD3D9Ex = GetPrivateProfileInt("DirectX", "bUseD3D9Ex", 0, iniDir);
 	g_bUseFlipExSwapMode = GetPrivateProfileInt("D3D9Ex", "bUseFlipExSwapMode", 0, iniDir);
+
+	g_bFPSFix = GetPrivateProfileInt("TickFix", "bFPSFix", 0, iniDir);
 	
 	g_iMaxFPS = GetPrivateProfileInt("FPSFix", "iMaxFPSTolerance", 59, iniDir);
 	g_iMinFPS = GetPrivateProfileInt("FPSFix", "iMinFPSTolerance", 20, iniDir);

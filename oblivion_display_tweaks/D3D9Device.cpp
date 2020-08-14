@@ -107,8 +107,9 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateTexture(UINT Width, UINT Height, U
 	if (Pool == D3DPOOL_MANAGED)
 	{
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
-		Usage = D3DUSAGE_DYNAMIC;
 	}
+	if (Usage == 0)
+		Usage |= D3DUSAGE_DYNAMIC;
 	return D3DDevice->CreateTexture(Width, Height, Levels, Usage, Format, Pool, ppTexture, pSharedHandle);
 }
 
@@ -116,8 +117,9 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateVolumeTexture(UINT Width, UINT Hei
 	if (Pool == D3DPOOL_MANAGED)
 	{
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
-		Usage = D3DUSAGE_DYNAMIC;
 	}
+	if (Usage == 0)
+		Usage |= D3DUSAGE_DYNAMIC;
 	return D3DDevice->CreateVolumeTexture(Width, Height, Depth, Levels, Usage, Format, Pool, ppVolumeTexture, pSharedHandle);
 }
 
@@ -125,8 +127,9 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateCubeTexture(UINT EdgeLength, UINT 
 	if (Pool == D3DPOOL_MANAGED)
 	{
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
-		Usage = D3DUSAGE_DYNAMIC;
 	}
+	if (Usage == 0)
+		Usage |= D3DUSAGE_DYNAMIC;
 	return D3DDevice->CreateCubeTexture(EdgeLength, Levels, Usage, Format, Pool, ppCubeTexture, pSharedHandle);
 }
 
@@ -134,8 +137,10 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateVertexBuffer(UINT Length, DWORD Us
 	if (Pool == D3DPOOL_MANAGED)
 	{
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
-		Usage = D3DUSAGE_DYNAMIC;
 	}
+	Usage &= ~D3DUSAGE_SOFTWAREPROCESSING;
+	Usage = D3DUSAGE_DYNAMIC;
+	Usage |= D3DUSAGE_WRITEONLY;
 	return D3DDevice->CreateVertexBuffer(Length, Usage, FVF, Pool, ppVertexBuffer, pSharedHandle);
 }
 
@@ -143,8 +148,10 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateIndexBuffer(UINT Length, DWORD Usa
 	if (Pool == D3DPOOL_MANAGED)
 	{
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
-		Usage = D3DUSAGE_DYNAMIC;
 	}
+	Usage &= ~D3DUSAGE_SOFTWAREPROCESSING;
+	Usage = D3DUSAGE_DYNAMIC;
+	Usage |= D3DUSAGE_WRITEONLY;
 	return D3DDevice->CreateIndexBuffer(Length, Usage, Format, Pool, ppIndexBuffer, pSharedHandle);
 }
 
@@ -564,8 +571,9 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateOffscreenPlainSurfaceEx(UINT Width
 	if (Pool == D3DPOOL_MANAGED)
 	{
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
-		Usage = D3DUSAGE_DYNAMIC;
 	}
+	if (Usage == 0)
+		Usage |= D3DUSAGE_DYNAMIC;
 	return D3DDevice->CreateOffscreenPlainSurfaceEx(Width, Height, Format, Pool, ppSurface, pSharedHandle, Usage);
 }
 
