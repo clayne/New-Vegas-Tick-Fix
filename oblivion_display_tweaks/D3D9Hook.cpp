@@ -67,11 +67,13 @@ HRESULT STDMETHODCALLTYPE CreateDeviceEx(IDirect3D9Ex* D3DInterface, UINT Adapte
 	{
 		_MESSAGE("  FlipEx enabled");
 		pPresentationParameters->SwapEffect = D3DSWAPEFFECT::D3DSWAPEFFECT_FLIPEX;
-		pPresentationParameters->Windowed = TRUE;
+		pPresentationParameters->Flags &= ~D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;
 	}
 	_MESSAGE("  Creating D3D9Ex device");
 	HRESULT R = D3DInterface->CreateDeviceEx(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, pFullscreenDisplayMode, ppReturnedDeviceInterface);
+
 	*ppReturnedDeviceInterface = new OblivionDirect3DDevice9Ex(D3DInterface, *ppReturnedDeviceInterface);
+
 	return R;
 }
 
@@ -79,8 +81,26 @@ HRESULT STDMETHODCALLTYPE CreateDevice(IDirect3D9Ex* D3DInterface, UINT Adapter,
 {
 	if (_bUseEx)
 	{
+		D3DDISPLAYMODEEX* pFullscreenDisplayMode;
+		D3DDISPLAYMODEEX displayModeEx;
+
+		if (pPresentationParameters->Windowed == FALSE)
+		{
+			displayModeEx.Format = pPresentationParameters->BackBufferFormat;
+			displayModeEx.Width = pPresentationParameters->BackBufferWidth;
+			displayModeEx.Height = pPresentationParameters->BackBufferHeight;
+			displayModeEx.RefreshRate = pPresentationParameters->FullScreen_RefreshRateInHz;
+			displayModeEx.ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
+			displayModeEx.Size = sizeof(D3DDISPLAYMODEEX);
+			pFullscreenDisplayMode = &displayModeEx;
+		}
+		else
+		{
+			pFullscreenDisplayMode = nullptr;
+		}
+
 		_MESSAGE(" Redirecting CreateDevice to CreateDeviceEx");
-		HRESULT R = CreateDeviceEx(D3DInterface, Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, NULL, (IDirect3DDevice9Ex**)ppReturnedDeviceInterface);
+		HRESULT R = CreateDeviceEx(D3DInterface, Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, pFullscreenDisplayMode, (IDirect3DDevice9Ex**)ppReturnedDeviceInterface);
 		return R;
 	}
 	else

@@ -76,7 +76,7 @@ COM_DECLSPEC_NOTHROW UINT STDMETHODCALLTYPE OblivionDirect3DDevice9Ex::GetNumber
 }
 
 STDMETHODIMP OblivionDirect3DDevice9Ex::Reset(D3DPRESENT_PARAMETERS *pPresentationParameters) {
-	return D3DDevice->Reset(pPresentationParameters);
+	return ResetEx(pPresentationParameters, NULL);
 }
 
 STDMETHODIMP OblivionDirect3DDevice9Ex::Present(CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion) {
@@ -139,7 +139,6 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateVertexBuffer(UINT Length, DWORD Us
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
 	}
 	Usage &= ~D3DUSAGE_SOFTWAREPROCESSING;
-	Usage = D3DUSAGE_DYNAMIC;
 	Usage |= D3DUSAGE_WRITEONLY;
 	return D3DDevice->CreateVertexBuffer(Length, Usage, FVF, Pool, ppVertexBuffer, pSharedHandle);
 }
@@ -150,7 +149,6 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateIndexBuffer(UINT Length, DWORD Usa
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
 	}
 	Usage &= ~D3DUSAGE_SOFTWAREPROCESSING;
-	Usage = D3DUSAGE_DYNAMIC;
 	Usage |= D3DUSAGE_WRITEONLY;
 	return D3DDevice->CreateIndexBuffer(Length, Usage, Format, Pool, ppIndexBuffer, pSharedHandle);
 }
