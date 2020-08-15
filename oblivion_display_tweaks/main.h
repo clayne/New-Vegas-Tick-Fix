@@ -20,6 +20,7 @@ int g_bFastExit = 0;
 int g_bBorderless = 0;
 int g_bForceD3D9Ex = 0;
 int g_bUseFlipExSwapMode = 0;
+int g_bUseDynamicBuffers = 0;
 int g_bFPSFix = 0;
 int g_iMaxFPS = 1;
 int g_iMinFPS = 1;

@@ -71,6 +71,7 @@ bool OBSEPlugin_Load(const OBSEInterface* obse)
 
 	g_bForceD3D9Ex = GetPrivateProfileInt("DirectX", "bUseD3D9Ex", 0, iniDir);
 	g_bUseFlipExSwapMode = GetPrivateProfileInt("D3D9Ex", "bUseFlipExSwapMode", 0, iniDir);
+	g_bUseDynamicBuffers = GetPrivateProfileInt("D3D9Ex", "bUseDynamicBuffers", 0, iniDir);
 
 	g_bFPSFix = GetPrivateProfileInt("TickFix", "bFPSFix", 0, iniDir);
 	

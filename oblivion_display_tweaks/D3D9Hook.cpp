@@ -107,7 +107,7 @@ HRESULT STDMETHODCALLTYPE CreateDevice(IDirect3D9Ex* D3DInterface, UINT Adapter,
 	{
 		_MESSAGE(" Falling back to CreateDevice");
 		HRESULT R = D3DInterface->CreateDevice(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, (IDirect3DDevice9**)ppReturnedDeviceInterface);
-		MessageBox(NULL, "Failed to create D3D9Ex, falling back to normal D3D9.\nFlipEx will not work!\n\nYou're probably using ENB.\nENB is fully incompatible with D3D9Ex as it doesn't implement the necessary functions in d3d9.dll.\nRemove ENB if you want to use D3D9Ex.", "Oblivion Display Tweaks", MB_TASKMODAL | MB_SETFOREGROUND | MB_ICONERROR | MB_OK);
+		MessageBox(NULL, "Failed to create D3D9Ex, falling back to normal D3D9.\nFlipEx will not work!\n\nYou're probably using ENB.\nENB is fully incompatible with D3D9Ex as it doesn't implement the necessary functions in d3d9.dll.\nRemove ENB if you want to use D3D9Ex.\nOr set bUseD3D9Ex = 0 in oblivion_display_tweaks.ini to use ENB with this plugin without the warning.", "Oblivion Display Tweaks", MB_TASKMODAL | MB_SETFOREGROUND | MB_ICONERROR | MB_OK);
 
 		return R;
 	}

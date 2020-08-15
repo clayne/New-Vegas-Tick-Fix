@@ -1,5 +1,7 @@
 #include "D3D9Device.h"
 
+extern int g_bUseDynamicBuffers;
+
 OblivionDirect3DDevice9Ex::OblivionDirect3DDevice9Ex(IDirect3D9Ex* D3DInterface, IDirect3DDevice9Ex* D3DDevice) : IDirect3DDevice9Ex() {
 	this->D3DInterface = D3DInterface;
 	this->D3DDevice = D3DDevice;
@@ -107,9 +109,10 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateTexture(UINT Width, UINT Height, U
 	if (Pool == D3DPOOL_MANAGED)
 	{
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
+		{
+			Usage |= D3DUSAGE_DYNAMIC;
+		}
 	}
-	if (Usage == 0)
-		Usage |= D3DUSAGE_DYNAMIC;
 	return D3DDevice->CreateTexture(Width, Height, Levels, Usage, Format, Pool, ppTexture, pSharedHandle);
 }
 
@@ -117,9 +120,11 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateVolumeTexture(UINT Width, UINT Hei
 	if (Pool == D3DPOOL_MANAGED)
 	{
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
+		if (Usage == 0)
+		{
+			Usage |= D3DUSAGE_DYNAMIC;
+		}
 	}
-	if (Usage == 0)
-		Usage |= D3DUSAGE_DYNAMIC;
 	return D3DDevice->CreateVolumeTexture(Width, Height, Depth, Levels, Usage, Format, Pool, ppVolumeTexture, pSharedHandle);
 }
 
@@ -127,9 +132,11 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateCubeTexture(UINT EdgeLength, UINT 
 	if (Pool == D3DPOOL_MANAGED)
 	{
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
+		if (Usage == 0)
+		{
+			Usage |= D3DUSAGE_DYNAMIC;
+		}
 	}
-	if (Usage == 0)
-		Usage |= D3DUSAGE_DYNAMIC;
 	return D3DDevice->CreateCubeTexture(EdgeLength, Levels, Usage, Format, Pool, ppCubeTexture, pSharedHandle);
 }
 
@@ -137,6 +144,10 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateVertexBuffer(UINT Length, DWORD Us
 	if (Pool == D3DPOOL_MANAGED)
 	{
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
+		if (g_bUseDynamicBuffers)
+		{
+			Usage |= D3DUSAGE_DYNAMIC;
+		}
 	}
 	Usage &= ~D3DUSAGE_SOFTWAREPROCESSING;
 	Usage |= D3DUSAGE_WRITEONLY;
@@ -147,6 +158,10 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateIndexBuffer(UINT Length, DWORD Usa
 	if (Pool == D3DPOOL_MANAGED)
 	{
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
+		if (g_bUseDynamicBuffers)
+		{
+			Usage |= D3DUSAGE_DYNAMIC;
+		}
 	}
 	Usage &= ~D3DUSAGE_SOFTWAREPROCESSING;
 	Usage |= D3DUSAGE_WRITEONLY;
@@ -569,9 +584,11 @@ STDMETHODIMP OblivionDirect3DDevice9Ex::CreateOffscreenPlainSurfaceEx(UINT Width
 	if (Pool == D3DPOOL_MANAGED)
 	{
 		Pool = D3DPOOL::D3DPOOL_DEFAULT;
+		if (Usage == 0)
+		{
+			Usage |= D3DUSAGE_DYNAMIC;
+		}
 	}
-	if (Usage == 0)
-		Usage |= D3DUSAGE_DYNAMIC;
 	return D3DDevice->CreateOffscreenPlainSurfaceEx(Width, Height, Format, Pool, ppSurface, pSharedHandle, Usage);
 }
 
